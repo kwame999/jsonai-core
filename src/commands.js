@@ -2,21 +2,57 @@
 import {parseTextToJSON,} from "./jsonai.js";
 
 const jsonai = {
-    
-    createMultiJSON: (amount, getName) => {
-    const quickObjects = [];
-    if (!amount || amount <= 0) return quickObjects;
 
-    for (let i = 0; i < amount; i++) {
-      const name = getName ? getName(i) : `object_${i + 1}`;
-      quickObjects.push({ [name]: {} });
+  /**
+   * Mass-generate multiple empty objects inside a parent.
+   * Example: "assets >: 5" => { assets: [{}, {}, {}, {}, {}] }
+   */
+
+  createMany(commandText) {
+    const tokens = tokenize(commandText); // e.g. ["assets", ">:","5"]
+
+    const parentName = tokens[0];
+    const count = Number(tokens[2]);
+
+    if (!parentName || Number.isNaN(count) || count <= 0) {
+      throw new Error("Invalid createMany command syntax.");
     }
 
-    return quickObjects;
+    // Create the array of empty objects
+    const items = Array.from({ length: count }, () => ({}));
+
+    return {
+      [parentName]: items,
+    };
   },
 
-  parseTextToJSON,
-  // later: parentSet, quickCommands, etc.
+  /**
+   * Parse a mass key-value assignment string.
+   * Example: "year1 : iphone1, year2 : iphone2" =>
+   *          { year1: "iphone1", year2: "iphone2" }
+   */
+
+  parseProperties(propertyText) {
+    
+    // Remove commas so they don’t break tokenizing
+    const cleaned = propertyText.replace(/,/g, "");
+
+    const tokens = tokenize(cleaned);
+    const result = {};
+
+    for (let i = 0; i < tokens.length; i++) {
+      if (tokens[i] === ":") {
+        const key = tokens[i - 1];
+        const value = tokens[i + 1];
+
+        if (key && value) {
+          result[key] = value;
+        }
+      }
+    }
+
+    return result;
+  }
 };
 
-export { jsonai };
+export { jsonai }
