@@ -1,13 +1,25 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
 :root {
-  background-color: black;
+  padding: 0;
+  margin: 0;
+  background-color: #05060F;
+  color: #F7F7FD;
+
+  --color-midnight-100: #05060F;
+  --color-midnight: #070919;
+  --color-washedblue-primary: #15151E;
+  --color-washedblue-secondary1: #1E1E2A;
+  --color-snowwhite-header: #F7F7FD;
+  --color-ghostblue-sub: #9E9FA8;
+  --color-smokewhite: #717184;
+  --color-midnight-sec-pan: #0F122D;
+  --color-container-code: #0C0C10;
+  --color-iconbg: #1E1E2A;
+  --color-button-primary: #D9D9D9;
+  --color-btn-text: #FFFFFF;
+  --color-btn-tab: #2B2B3F;
+  --color-greysmo: #4D545C;
 }
-
-
-

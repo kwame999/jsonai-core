@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './index.css'
 
+import './index.css'
+import HomeComponent from './home'
+import SideNav from './side-nav'
 function App() {
   
 
   return (
-    <div>
-      <p className='  text-red-600'>Lorem, ipsum.</p>
+    <div className='flex border-4 overflow-hidden h-screen'>
+      <SideNav/>
+      <HomeComponent/>
     </div>
   )
 
